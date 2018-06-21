@@ -89,6 +89,10 @@ int HPL_bwait
 /*
  * Retrieve the selected virtual broadcast topology
  */
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
+
    top = PANEL->algo->btopo;
 
    switch( top )
@@ -101,7 +105,11 @@ int HPL_bwait
       case HPL_BLONG   : ierr = HPL_bwait_blong( PANEL ); break;
       default          : ierr = HPL_SUCCESS;
    }
- 
+
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
+
    return( ierr );
 /*
  * End of HPL_bwait

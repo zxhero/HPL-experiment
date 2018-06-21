@@ -101,6 +101,11 @@ typedef struct HPL_S_test
 #define    HPL_TIMING_LASWP      15
 #define    HPL_TIMING_PTRSV      16
 #endif
+
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+#define    HPL_TIMING_NUM          7 /* number of timers defined */
+#define    HPL_TIMING_SERIAL      17
+#endif
 /*
  * ---------------------------------------------------------------------
  * Function prototypes

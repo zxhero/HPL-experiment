@@ -121,6 +121,9 @@ int HPL_recv
  * .. Executable Statements ..
  */
    if( RCOUNT <= 0 ) return( HPL_SUCCESS );
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
 
 #ifdef HPL_USE_MPI_DATATYPE
    ierr =      MPI_Type_contiguous( RCOUNT, MPI_DOUBLE, &type );
@@ -135,6 +138,11 @@ int HPL_recv
    ierr = MPI_Recv( (void *)(RBUF), RCOUNT, MPI_DOUBLE, SRC, RTAG,
                     COMM, &status );
 #endif
+
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
+
    return( ( ierr == MPI_SUCCESS ? HPL_SUCCESS : HPL_FAILURE ) );
 /*
  * End of HPL_recv

@@ -1,6 +1,6 @@
 HPLinpack benchmark input file
 Innovative Computing Laboratory, University of Tennessee
-HPL_check_bacst.out      output file name (if any)
+HPL_check_CPU_time.out      output file name (if any)
 8            device out (6=stdout,7=stderr,file)
 1            # of problems sizes (N)
 30  Ns

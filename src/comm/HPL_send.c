@@ -120,6 +120,9 @@ int HPL_send
  * .. Executable Statements ..
  */
    if( SCOUNT <= 0 ) return( HPL_SUCCESS );
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
 
 #ifdef HPL_USE_MPI_DATATYPE
    ierr =      MPI_Type_contiguous( SCOUNT, MPI_DOUBLE, &type );
@@ -132,6 +135,11 @@ int HPL_send
 #else
    ierr = MPI_Send( (void *)(SBUF), SCOUNT, MPI_DOUBLE, DEST, STAG, COMM );
 #endif
+
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
+
    return( ( ierr == MPI_SUCCESS ? HPL_SUCCESS : HPL_FAILURE ) ); 
 /*
  * End of HPL_send

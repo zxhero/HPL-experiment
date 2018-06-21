@@ -92,12 +92,17 @@ int HPL_bcast
 /* ..
  * .. Executable Statements ..
  */
+
    if( PANEL == NULL ) { *IFLAG = HPL_SUCCESS; return( HPL_SUCCESS ); }
    if( PANEL->grid->npcol <= 1 )
    {                     *IFLAG = HPL_SUCCESS; return( HPL_SUCCESS ); }
 /*
  * Retrieve the selected virtual broadcast topology
  */
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
+
    top = PANEL->algo->btopo;
 
    switch( top )
@@ -110,7 +115,10 @@ int HPL_bcast
       case HPL_BLONG   : ierr = HPL_bcast_blong( PANEL, IFLAG ); break;
       default          : ierr = HPL_SUCCESS;
    }
- 
+
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer(HPL_TIMING_SERIAL);
+#endif
    return( ierr );
 /*
  * End of HPL_bcast

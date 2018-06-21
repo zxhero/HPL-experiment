@@ -68,6 +68,12 @@
 #define HPL_CALL_FBLAS
 #endif
 #endif
+
+#define HPL_SERIAL_PARALLEL_TIMING
+#ifndef HPL_SERIAL_PARALLEL_TIMING         /* Do not enable parallel and serial code running timings */
+#define HPL_NO_SERIAL_PARALLEL_TIMING
+#endif
+
 /*
  * ---------------------------------------------------------------------
  * Include files

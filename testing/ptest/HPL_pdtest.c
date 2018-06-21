@@ -120,7 +120,16 @@ void HPL_pdtest
  * .. Local Variables ..
  */
 #ifdef HPL_DETAILED_TIMING
-   double                     HPL_w[HPL_TIMING_N];
+    
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+   double                     HPL_w[HPL_TIMING_NUM];
+    double                    parallel_efficiency;
+    double                    total_parallel_time;
+    double                    total_time;
+    int                       index;
+#else
+    double                     HPL_w[HPL_TIMING_N];
+#endif
 #endif
    HPL_T_pmat                 mat;
    double                     wtime[1];
@@ -259,6 +268,94 @@ void HPL_pdtest
       }
    }
 #ifdef HPL_DETAILED_TIMING
+#ifdef HPL_SERIAL_PARALLEL_TIMING
+    HPL_ptimer_combine( GRID->all_comm, HPL_SUM_PTIME, HPL_CPU_PTIME,
+                       1, 0, &total_time );
+    HPL_ptimer_combine( GRID->all_comm, HPL_SUM_PTIME, HPL_CPU_PTIME,
+                       HPL_TIMING_NUM, HPL_TIMING_BEG, HPL_w );
+     if( ( myrow == 0 ) && ( mycol == 0 ) )
+   {
+      HPL_fprintf( TEST->outfp, "%s%s\n",
+                   "--VVV--VVV--VVV--VVV--VVV--VVV--VVV--V",
+                   "VV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-" );
+/*
+ * Recursive panel factorization
+ */
+      if( HPL_w[HPL_TIMING_RPFACT-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "Total aggregated wall time rfact . . . : %18.2f\n",
+                      HPL_w[HPL_TIMING_RPFACT-HPL_TIMING_BEG] );
+/*
+ * Panel factorization
+ */
+      if( HPL_w[HPL_TIMING_PFACT-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "+ Total aggregated wall time pfact . . : %18.2f\n",
+                      HPL_w[HPL_TIMING_PFACT-HPL_TIMING_BEG] );
+/*
+ * Panel factorization (swap)
+ */
+      if( HPL_w[HPL_TIMING_MXSWP-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "+ Total aggregated wall time mxswp . . : %18.2f\n",
+                      HPL_w[HPL_TIMING_MXSWP-HPL_TIMING_BEG] );
+/*
+ * Update
+ */
+      if( HPL_w[HPL_TIMING_UPDATE-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "Total aggregated wall time update  . . : %18.2f\n",
+                      HPL_w[HPL_TIMING_UPDATE-HPL_TIMING_BEG] );
+/*
+ * Update (swap)
+ */
+      if( HPL_w[HPL_TIMING_LASWP-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "+ Total aggregated wall time laswp . . : %18.2f\n",
+                      HPL_w[HPL_TIMING_LASWP-HPL_TIMING_BEG] );
+/*
+ * Upper triangular system solve
+ */
+      if( HPL_w[HPL_TIMING_PTRSV-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "Total aggregated wall time up tr sv  . : %18.2f\n",
+                      HPL_w[HPL_TIMING_PTRSV-HPL_TIMING_BEG] );
+/*
+ * Communication time
+ */
+
+      if( HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] > HPL_rzero )
+         HPL_fprintf( TEST->outfp,
+                      "Total Communication wall time . . .  . : %18.2f\n",
+                      HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] );
+
+         HPL_fprintf( TEST->outfp,
+                      "Total time . . . . . . . . . . . . . . : %18.2f\n",
+                      total_time );
+/*
+ * parallel efficiency
+ */
+        //for(total_parallel_time = 0.0, index = 0;index < HPL_TIMING_N;index++){
+        //    total_parallel_time += HPL_w[index];
+        //}
+         total_parallel_time = total_time - HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG];
+
+         HPL_fprintf( TEST->outfp,
+                      "Total parallel code running time . . . : %18.2f\n",
+                      total_parallel_time );
+
+        parallel_efficiency = (total_time) / ( HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] + total_parallel_time / 4.0);
+        HPL_fprintf( TEST->outfp,
+                      "parallel efficiency . . . . . . . .  . : %18.2f\n",
+                      parallel_efficiency );
+
+      if( TEST->thrsh <= HPL_rzero )
+         HPL_fprintf( TEST->outfp, "%s%s\n",
+                      "========================================",
+                      "========================================" );
+   }
+
+#else
    HPL_ptimer_combine( GRID->all_comm, HPL_AMAX_PTIME, HPL_WALL_PTIME,
                        HPL_TIMING_N, HPL_TIMING_BEG, HPL_w );
    if( ( myrow == 0 ) && ( mycol == 0 ) )
@@ -314,6 +411,7 @@ void HPL_pdtest
                       "========================================",
                       "========================================" );
    }
+#endif
 #endif
 /*
  * Quick return, if I am not interested in checking the computations
