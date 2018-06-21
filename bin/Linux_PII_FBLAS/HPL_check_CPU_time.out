@@ -1,0 +1,116 @@
+================================================================================
+HPLinpack 2.2  --  High-Performance Linpack benchmark  --   February 24, 2016
+Written by A. Petitet and R. Clint Whaley,  Innovative Computing Laboratory, UTK
+Modified by Piotr Luszczek, Innovative Computing Laboratory, UTK
+Modified by Julien Langou, University of Colorado Denver
+================================================================================
+
+An explanation of the input/output parameters follows:
+T/V    : Wall time / encoded variant.
+N      : The order of the coefficient matrix A.
+NB     : The partitioning blocking factor.
+P      : The number of process rows.
+Q      : The number of process columns.
+Time   : Time in seconds to solve the linear system.
+Gflops : Rate of execution for solving the linear system.
+
+The following parameter values will be used:
+
+N      :      30 
+NB     :       4 
+PMAP   : Row-major process mapping
+P      :       2 
+Q      :       2 
+PFACT  :    Left 
+NBMIN  :       4 
+NDIV   :       2 
+RFACT  :    Left 
+BCAST  :   1ring    2ring    Blong 
+DEPTH  :       0 
+SWAP   : Mix (threshold = 64)
+L1     : transposed form
+U      : transposed form
+EQUIL  : yes
+ALIGN  : 8 double precision words
+
+--------------------------------------------------------------------------------
+
+- The matrix A is randomly generated for each test.
+- The following scaled residual check will be computed:
+      ||Ax-b||_oo / ( eps * ( || x ||_oo * || A ||_oo + || b ||_oo ) * N )
+- The relative machine precision (eps) is taken to be               1.110223e-16
+- Computational tests pass if scaled residuals are less than                16.0
+
+================================================================================
+T/V                N    NB     P     Q               Time                 Gflops
+--------------------------------------------------------------------------------
+WR00L2L4          30     4     2     2               0.16              1.245e-04
+HPL_pdgesv() start time Thu Jun 21 01:12:16 2018
+
+HPL_pdgesv() end time   Thu Jun 21 01:12:16 2018
+
+--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
+Total aggregated wall time rfact . . . :               0.01
++ Total aggregated wall time pfact . . :               0.01
++ Total aggregated wall time mxswp . . :               0.01
+Total aggregated wall time update  . . :               0.01
++ Total aggregated wall time laswp . . :               0.01
+Total aggregated wall time up tr sv  . :               0.11
+Total Communication wall time . . .  . :               0.14
+Total time . . . . . . . . . . . . . . :               0.19
+Total parallel code running time . . . :               0.06
+parallel efficiency . . . . . . . .  . :               1.27
+--------------------------------------------------------------------------------
+||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
+================================================================================
+T/V                N    NB     P     Q               Time                 Gflops
+--------------------------------------------------------------------------------
+WR02L2L4          30     4     2     2               0.11              1.797e-04
+HPL_pdgesv() start time Thu Jun 21 01:12:16 2018
+
+HPL_pdgesv() end time   Thu Jun 21 01:12:16 2018
+
+--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
+Total aggregated wall time rfact . . . :               0.00
++ Total aggregated wall time pfact . . :               0.00
++ Total aggregated wall time mxswp . . :               0.00
+Total aggregated wall time update  . . :               0.02
++ Total aggregated wall time laswp . . :               0.02
+Total aggregated wall time up tr sv  . :               0.09
+Total Communication wall time . . .  . :               0.12
+Total time . . . . . . . . . . . . . . :               0.16
+Total parallel code running time . . . :               0.04
+parallel efficiency . . . . . . . .  . :               1.26
+--------------------------------------------------------------------------------
+||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
+================================================================================
+T/V                N    NB     P     Q               Time                 Gflops
+--------------------------------------------------------------------------------
+WR04L2L4          30     4     2     2               0.33              5.895e-05
+HPL_pdgesv() start time Thu Jun 21 01:12:16 2018
+
+HPL_pdgesv() end time   Thu Jun 21 01:12:16 2018
+
+--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
+Total aggregated wall time rfact . . . :               0.03
++ Total aggregated wall time pfact . . :               0.03
++ Total aggregated wall time mxswp . . :               0.03
+Total aggregated wall time update  . . :               0.05
++ Total aggregated wall time laswp . . :               0.05
+Total aggregated wall time up tr sv  . :               0.12
+Total Communication wall time . . .  . :               0.46
+Total time . . . . . . . . . . . . . . :               0.55
+Total parallel code running time . . . :               0.09
+parallel efficiency . . . . . . . .  . :               1.14
+--------------------------------------------------------------------------------
+||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
+================================================================================
+
+Finished      3 tests with the following results:
+              3 tests completed and passed residual checks,
+              0 tests completed and failed residual checks,
+              0 tests skipped because of illegal input values.
+--------------------------------------------------------------------------------
+
+End of Tests.
+================================================================================
