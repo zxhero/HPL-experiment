@@ -127,6 +127,7 @@ void HPL_pdtest
     double                    total_parallel_time;
     double                    total_time;
     int                       index;
+    double                    single_serial_time;
 #else
     double                     HPL_w[HPL_TIMING_N];
 #endif
@@ -269,8 +270,11 @@ void HPL_pdtest
    }
 #ifdef HPL_DETAILED_TIMING
 #ifdef HPL_SERIAL_PARALLEL_TIMING
-    HPL_ptimer_combine( GRID->all_comm, HPL_SUM_PTIME, HPL_CPU_PTIME,
+//HPL_SUM_PTIME
+    HPL_ptimer_combine( GRID->all_comm, HPL_AMAX_PTIME, HPL_WALL_PTIME,
                        1, 0, &total_time );
+    HPL_ptimer_combine( GRID->all_comm, HPL_AMAX_PTIME, HPL_CPU_PTIME,
+                       1, HPL_TIMING_SERIAL, &single_serial_time );
     HPL_ptimer_combine( GRID->all_comm, HPL_SUM_PTIME, HPL_CPU_PTIME,
                        HPL_TIMING_NUM, HPL_TIMING_BEG, HPL_w );
      if( ( myrow == 0 ) && ( mycol == 0 ) )
@@ -326,8 +330,8 @@ void HPL_pdtest
 
       if( HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] > HPL_rzero )
          HPL_fprintf( TEST->outfp,
-                      "Total Communication wall time . . .  . : %18.2f\n",
-                      HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] );
+                      "Total Communication CPU time . . .  . : %18.2f\n",
+                      single_serial_time );
 
          HPL_fprintf( TEST->outfp,
                       "Total time . . . . . . . . . . . . . . : %18.2f\n",
@@ -338,15 +342,25 @@ void HPL_pdtest
         //for(total_parallel_time = 0.0, index = 0;index < HPL_TIMING_N;index++){
         //    total_parallel_time += HPL_w[index];
         //}
-         total_parallel_time = total_time - HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG];
+         //total_parallel_time = total_time - HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG];
 
-         HPL_fprintf( TEST->outfp,
+         /*HPL_fprintf( TEST->outfp,
+                      "Total parallel code running time . . . : %18.2f\n",
+                      total_parallel_time );*/
+
+       // parallel_efficiency = (total_time) / ( HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] + total_parallel_time / 4.0);
+        /*parallel_efficiency = ( HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] ) / (4.0 * total_parallel_time);
+        HPL_fprintf( TEST->outfp,
+                      "Upper bound parallel efficiency . .  . : %18.2f\n",
+                      parallel_efficiency );*/
+
+        total_parallel_time = total_time - single_serial_time;
+        parallel_efficiency = ( single_serial_time ) / (total_parallel_time);
+        HPL_fprintf( TEST->outfp,
                       "Total parallel code running time . . . : %18.2f\n",
                       total_parallel_time );
-
-        parallel_efficiency = (total_time) / ( HPL_w[HPL_TIMING_SERIAL-HPL_TIMING_BEG] + total_parallel_time / 4.0);
         HPL_fprintf( TEST->outfp,
-                      "parallel efficiency . . . . . . . .  . : %18.2f\n",
+                      "parallel efficiency . .  . . . . . . . : %18.2f\n",
                       parallel_efficiency );
 
       if( TEST->thrsh <= HPL_rzero )

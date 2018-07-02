@@ -25,7 +25,7 @@ PFACT  :    Left
 NBMIN  :       4 
 NDIV   :       2 
 RFACT  :    Left 
-BCAST  :   1ring    2ring    Blong 
+BCAST  :   1ring 
 DEPTH  :       0 
 SWAP   : Mix (threshold = 64)
 L1     : transposed form
@@ -44,70 +44,28 @@ ALIGN  : 8 double precision words
 ================================================================================
 T/V                N    NB     P     Q               Time                 Gflops
 --------------------------------------------------------------------------------
-WR00L2L4          30     4     2     2               0.16              1.245e-04
-HPL_pdgesv() start time Thu Jun 21 01:12:16 2018
+WR00L2L4          30     4     2     2               0.13              1.517e-04
+HPL_pdgesv() start time Mon Jul  2 01:59:50 2018
 
-HPL_pdgesv() end time   Thu Jun 21 01:12:16 2018
-
---VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
-Total aggregated wall time rfact . . . :               0.01
-+ Total aggregated wall time pfact . . :               0.01
-+ Total aggregated wall time mxswp . . :               0.01
-Total aggregated wall time update  . . :               0.01
-+ Total aggregated wall time laswp . . :               0.01
-Total aggregated wall time up tr sv  . :               0.11
-Total Communication wall time . . .  . :               0.14
-Total time . . . . . . . . . . . . . . :               0.19
-Total parallel code running time . . . :               0.06
-parallel efficiency . . . . . . . .  . :               1.27
---------------------------------------------------------------------------------
-||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
-================================================================================
-T/V                N    NB     P     Q               Time                 Gflops
---------------------------------------------------------------------------------
-WR02L2L4          30     4     2     2               0.11              1.797e-04
-HPL_pdgesv() start time Thu Jun 21 01:12:16 2018
-
-HPL_pdgesv() end time   Thu Jun 21 01:12:16 2018
+HPL_pdgesv() end time   Mon Jul  2 01:59:50 2018
 
 --VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
 Total aggregated wall time rfact . . . :               0.00
 + Total aggregated wall time pfact . . :               0.00
 + Total aggregated wall time mxswp . . :               0.00
-Total aggregated wall time update  . . :               0.02
-+ Total aggregated wall time laswp . . :               0.02
-Total aggregated wall time up tr sv  . :               0.09
-Total Communication wall time . . .  . :               0.12
-Total time . . . . . . . . . . . . . . :               0.16
-Total parallel code running time . . . :               0.04
-parallel efficiency . . . . . . . .  . :               1.26
---------------------------------------------------------------------------------
-||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
-================================================================================
-T/V                N    NB     P     Q               Time                 Gflops
---------------------------------------------------------------------------------
-WR04L2L4          30     4     2     2               0.33              5.895e-05
-HPL_pdgesv() start time Thu Jun 21 01:12:16 2018
-
-HPL_pdgesv() end time   Thu Jun 21 01:12:16 2018
-
---VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
-Total aggregated wall time rfact . . . :               0.03
-+ Total aggregated wall time pfact . . :               0.03
-+ Total aggregated wall time mxswp . . :               0.03
-Total aggregated wall time update  . . :               0.05
-+ Total aggregated wall time laswp . . :               0.05
-Total aggregated wall time up tr sv  . :               0.12
-Total Communication wall time . . .  . :               0.46
-Total time . . . . . . . . . . . . . . :               0.55
-Total parallel code running time . . . :               0.09
-parallel efficiency . . . . . . . .  . :               1.14
+Total aggregated wall time update  . . :               0.01
++ Total aggregated wall time laswp . . :               0.01
+Total aggregated wall time up tr sv  . :               0.07
+Total Communication CPU time . . .  . :               0.03
+Total time . . . . . . . . . . . . . . :               0.13
+Total parallel code running time . . . :               0.10
+parallel efficiency . .  . . . . . . . :               0.31
 --------------------------------------------------------------------------------
 ||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
 ================================================================================
 
-Finished      3 tests with the following results:
-              3 tests completed and passed residual checks,
+Finished      1 tests with the following results:
+              1 tests completed and passed residual checks,
               0 tests completed and failed residual checks,
               0 tests skipped because of illegal input values.
 --------------------------------------------------------------------------------
