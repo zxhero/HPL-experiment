@@ -44,22 +44,22 @@ ALIGN  : 8 double precision words
 ================================================================================
 T/V                N    NB     P     Q               Time                 Gflops
 --------------------------------------------------------------------------------
-WR00L2L4          30     4     2     2               0.13              1.517e-04
-HPL_pdgesv() start time Mon Jul  2 01:59:50 2018
+WR00L2L4          30     4     2     2               0.17              1.152e-04
+HPL_pdgesv() start time Mon Jul  2 19:12:36 2018
 
-HPL_pdgesv() end time   Mon Jul  2 01:59:50 2018
+HPL_pdgesv() end time   Mon Jul  2 19:12:37 2018
 
 --VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV--VVV-
-Total aggregated wall time rfact . . . :               0.00
-+ Total aggregated wall time pfact . . :               0.00
-+ Total aggregated wall time mxswp . . :               0.00
+Total aggregated wall time rfact . . . :               0.02
++ Total aggregated wall time pfact . . :               0.02
++ Total aggregated wall time mxswp . . :               0.02
 Total aggregated wall time update  . . :               0.01
 + Total aggregated wall time laswp . . :               0.01
-Total aggregated wall time up tr sv  . :               0.07
+Total aggregated wall time up tr sv  . :               0.08
 Total Communication CPU time . . .  . :               0.03
-Total time . . . . . . . . . . . . . . :               0.13
-Total parallel code running time . . . :               0.10
-parallel efficiency . .  . . . . . . . :               0.31
+Total time . . . . . . . . . . . . . . :               0.05
+Total parallel code running time . . . :               0.02
+parallel efficiency . .  . . . . . . . :               0.45
 --------------------------------------------------------------------------------
 ||Ax-b||_oo/(eps*(||A||_oo*||x||_oo+||b||_oo)*N)=        0.0167593 ...... PASSED
 ================================================================================

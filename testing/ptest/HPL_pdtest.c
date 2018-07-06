@@ -271,7 +271,7 @@ void HPL_pdtest
 #ifdef HPL_DETAILED_TIMING
 #ifdef HPL_SERIAL_PARALLEL_TIMING
 //HPL_SUM_PTIME
-    HPL_ptimer_combine( GRID->all_comm, HPL_AMAX_PTIME, HPL_WALL_PTIME,
+    HPL_ptimer_combine( GRID->all_comm, HPL_AMAX_PTIME, HPL_CPU_PTIME,
                        1, 0, &total_time );
     HPL_ptimer_combine( GRID->all_comm, HPL_AMAX_PTIME, HPL_CPU_PTIME,
                        1, HPL_TIMING_SERIAL, &single_serial_time );
@@ -355,7 +355,7 @@ void HPL_pdtest
                       parallel_efficiency );*/
 
         total_parallel_time = total_time - single_serial_time;
-        parallel_efficiency = ( single_serial_time ) / (total_parallel_time);
+        parallel_efficiency = (  total_parallel_time) / (total_time);
         HPL_fprintf( TEST->outfp,
                       "Total parallel code running time . . . : %18.2f\n",
                       total_parallel_time );
